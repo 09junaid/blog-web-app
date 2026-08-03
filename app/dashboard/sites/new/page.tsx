@@ -10,7 +10,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { ArrowLeftIcon, PlusCircleIcon, SendHorizontal } from "lucide-react";
+import { SendHorizontal } from "lucide-react";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -42,12 +42,11 @@ export default function NewSiteRoute() {
           </div>
         </CardContent>
 
-        <CardFooter className="mt-6 justify-between gap-3">
+        <CardFooter className="mt-6 justify-end gap-3">
           <Link
             href="/dashboard/sites"
             className={cn(buttonVariants({ variant: "outline" }), "gap-2")}
           >
-            <ArrowLeftIcon className="size-4" />
             <span>Cancel</span>
           </Link>
 
