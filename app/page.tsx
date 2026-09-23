@@ -86,10 +86,14 @@ export default async function Home() {
             {!userId ? (
               <>
                 <SignInButton mode="modal">
-                  <Button variant="ghost">Sign in</Button>
+                  <Button variant="ghost" className="cursor-pointer">
+                    Sign in
+                  </Button>
                 </SignInButton>
                 <SignUpButton mode="modal">
-                  <Button className="hidden sm:inline-flex">Create account</Button>
+                  <Button className="hidden cursor-pointer sm:inline-flex">
+                    Create account
+                  </Button>
                 </SignUpButton>
               </>
             ) : (
@@ -125,12 +129,14 @@ export default async function Home() {
           {!userId ? (
             <div className="mt-7 flex flex-col items-center gap-3 sm:flex-row">
               <SignInButton mode="modal">
-                <Button variant="secondary" size="lg">
+                <Button variant="secondary" size="lg" className="cursor-pointer">
                   Sign in
                 </Button>
               </SignInButton>
               <SignUpButton mode="modal">
-                <Button size="lg">Try for free</Button>
+                <Button size="lg" className="cursor-pointer">
+                  Try for free
+                </Button>
               </SignUpButton>
             </div>
           ) : (
