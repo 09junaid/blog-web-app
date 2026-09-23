@@ -1,36 +1,19 @@
-import Image from "next/image";
+import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { ReactNode } from "react";
-import Logo from "@/public/globe.svg";
 import { DashboardItems } from "../components/dashboard/DashboardItems";
-import { CircleUser, DollarSign, Globe, Home, Turtle } from "lucide-react";
+import { MobileSidebar } from "../components/dashboard/MobileSidebar";
 import { ThemeToggle } from "../components/dashboard/ThemeToggle";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+import { requireUser } from "@/lib/auth";
+import { BrandLogo } from "@/components/brand-logo";
 
-export const navLinks = [
-  {
-    name: "Dashboard",
-    href: "/dashboard",
-    icon: Home,
-  },
-  {
-    name: "Sites",
-    href: "/dashboard/sites",
-    icon: Globe,
-  },
-  {
-    name: "Pricing",
-    href: "/dashboard/pricing",
-    icon: DollarSign,
-  },
-];
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+export default async function DashboardLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  await requireUser();
+
   return (
     <section
       className="grid min-h-screen w-full md:grid-cols-[220px_1fr]
@@ -39,8 +22,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <div className="hidden border-r bg-muted/40 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-            <Link href={"/"} className="flex items-center gap-2 font-semibold">
-              <h3 className="text-2xl flex items-center gap-2 justify-center text-primary">Blog <span><Turtle /></span></h3>
+            <Link href={"/dashboard"} className="min-w-0">
+              <BrandLogo markClassName="size-9 rounded-lg" />
             </Link>
           </div>
           <div className="flex-1">
@@ -50,27 +33,20 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex min-w-0 flex-col">
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+          <MobileSidebar />
+          <Link href="/dashboard" className="min-w-0 md:hidden">
+            <BrandLogo markClassName="size-8 rounded-lg" />
+          </Link>
           <div className="ml-auto flex items-center gap-x-5">
             <ThemeToggle />
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Button
-                  variant="secondary"
-                  size="icon"
-                  className="rounded-full"
-                >
-                  <CircleUser className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Logout</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <UserButton />
           </div>
         </header>
-        <main className="flex-1 p-4 lg:p-6">{children}</main>
+        <main className="min-w-0 flex-1 overflow-hidden p-4 lg:p-6">
+          {children}
+        </main>
       </div>
     </section>
   );

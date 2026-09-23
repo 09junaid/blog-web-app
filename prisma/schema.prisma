@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Site {
+  id           String   @id @default(cuid())
+  name         String
+  subdirectory String   @unique
+  description  String?
+  imageUrl     String?
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  posts        Post[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model User {
+  id           String   @id @unique
+  email        String
+  firstName    String
+  lastName     String
+  profileImage String
+  sites        Site[]
+  posts        Post[]
+  createdAt    DateTime @default(now())
+}
+
+model Post {
+  id               String   @id @default(uuid())
+  title            String
+  articleContent   Json
+  smallDescription String
+  image            String
+  slug             String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  userId           String?
+  user             User?    @relation(fields: [userId], references: [id])
+  siteId           String?
+  site             Site?    @relation(fields: [siteId], references: [id])
+
+  @@index([userId])
+  @@index([siteId])
+}

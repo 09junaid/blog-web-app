@@ -171,3 +171,82 @@
     @apply bg-background text-foreground;
   }
 } 
+
+@layer components {
+  .landing-logo-marquee {
+    animation: landing-logo-scroll 28s linear infinite;
+  }
+
+  .landing-logo-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  .rich-text-editor .ProseMirror {
+    background: var(--card);
+    color: var(--card-foreground);
+  }
+
+  .rich-text-editor .ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    pointer-events: none;
+    float: left;
+    height: 0;
+    color: var(--muted-foreground);
+  }
+
+  .rich-text-editor .ProseMirror h1 {
+    margin-block: 0.75rem 0.5rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .rich-text-editor .ProseMirror h2 {
+    margin-block: 0.75rem 0.5rem;
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .rich-text-editor .ProseMirror ul,
+  .rich-text-editor .ProseMirror ol {
+    margin-block: 0.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .rich-text-editor .ProseMirror ul {
+    list-style: disc;
+  }
+
+  .rich-text-editor .ProseMirror ol {
+    list-style: decimal;
+  }
+
+  .rich-text-editor .ProseMirror blockquote {
+    margin-block: 0.75rem;
+    border-left: 3px solid var(--primary);
+    padding-left: 1rem;
+    color: var(--muted-foreground);
+  }
+
+  .rich-text-editor .ProseMirror pre {
+    margin-block: 0.75rem;
+    overflow-x: auto;
+    border-radius: var(--radius);
+    background: var(--muted);
+    padding: 0.875rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+}
+
+@keyframes landing-logo-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 0.5rem));
+  }
+}
